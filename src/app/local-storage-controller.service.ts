@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {RowModel} from "./row.model";
-const dataJSON = require('../app/data/data.json');
+import dataJSON from '../app/data/data.json'
 
 @Injectable({
   providedIn: 'root'
@@ -24,8 +24,10 @@ export class LocalStorageControllerService {
     localStorage.setItem('table', JSON.stringify(rows));
   }
 
+
+
   getTableFromFile(): RowModel[]{
-   let data = JSON.parse(dataJSON).users
+   let data = dataJSON.users
 
     let rows: RowModel[] = []
 
@@ -33,6 +35,8 @@ export class LocalStorageControllerService {
       rows.push(new RowModel(row.name + ' ' + row.surname, row.email, row.phone))
     }
 
+    console.log(rows)
     return rows
+
   }
 }

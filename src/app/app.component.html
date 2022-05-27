@@ -10,22 +10,63 @@
     </div>
 
   </div>
-  <div class="table">
-    <div class="row">
-      <div><input type="checkbox" style="height: 16px; width: 16px"></div>
-      <div>Имя</div>
-      <div>E-mail</div>
-      <div>Номер телефона</div>
-    </div>
-    <div class="row">
-      <div><input type="checkbox" style="height: 16px; width: 16px"></div>
-      <div>Александр Петров</div>
-      <div>petrov@mail.ru</div>
-      <div>+79061856195</div>
-    </div>
-  </div>
-  <div class="pagination">
+<!--  <div class="table">-->
+<!--    <div class="row">-->
+<!--      <div><input type="checkbox" style="height: 16px; width: 16px"></div>-->
+<!--      <div>Имя</div>-->
+<!--      <div>E-mail</div>-->
+<!--      <div>Номер телефона</div>-->
+<!--    </div>-->
+<!--    <div class="row">-->
+<!--      <div><input type="checkbox" style="height: 16px; width: 16px"></div>-->
+<!--      <div>Александр Петров</div>-->
+<!--      <div>petrov@mail.ru</div>-->
+<!--      <div>+79061856195</div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  <div class="pagination">-->
 
-  </div>
+<!--  </div>-->
+
+
+  <table *ngIf="this.rows && this.columns" mat-table [dataSource]="this.rows">
+
+    <!-- Checkbox Column -->
+    <ng-container matColumnDef="select">
+      <th mat-header-cell *matHeaderCellDef>
+        <mat-checkbox (change)="$event ? masterToggle() : null"
+                      [checked]="this.tableHandlerService.selectedRowsNum > 0 && this.tableHandlerService.isAllSelected()"
+                      [indeterminate]="this.tableHandlerService.selectedRowsNum > 0 && !this.tableHandlerService.isAllSelected()"
+        >
+<!--                      [aria-label]="checkboxLabel()"-->
+        </mat-checkbox>
+      </th>
+      <td mat-cell *matCellDef="let row">
+        <mat-checkbox (click)="$event.stopPropagation()"
+                      (change)="$event ? this.tableHandlerService.toggleRow(row) : null"
+                      [checked]="row.selected">
+<!--                      [aria-label]="checkboxLabel(row)"-->
+        </mat-checkbox>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Имя</th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef>E-mail</th>
+      <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="phone">
+      <th mat-header-cell *matHeaderCellDef>Номер телефона</th>
+      <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columns"></tr>
+    <tr mat-row *matRowDef="let row; columns: columns;"></tr>
+  </table>
 </div>
 </body>
