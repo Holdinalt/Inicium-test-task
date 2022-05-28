@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {TableHandlerService} from "./table-handler.service";
 import {RowModel} from "./row.model";
+import { MatPaginator } from '@angular/material/paginator';
+import {MatTableDataSource} from "@angular/material/table";
 
 @Component({
   selector: 'app-root',
@@ -12,11 +14,26 @@ export class AppComponent {
 
   rows?: RowModel[]
   columns?: string[]
+  dataSource?: MatTableDataSource<RowModel>;
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+  ngAfterViewInit() {
+    this.paginator.page.subscribe(x =>{
+      console.log(x)
+    })
+    console.log(this.paginator.length)
+    // if(this.dataSource){
+    //   this.dataSource.paginator = this.paginator;
+    // }
+  }
 
   constructor(public tableHandlerService: TableHandlerService) {
     this.rows = tableHandlerService.rows;
     this.columns = tableHandlerService.columns;
-    console.log(this.rows)
+    this.dataSource = new MatTableDataSource<RowModel>(this.rows);
+    console.log('lol')
+
   }
 
   /** Selects all rows if they are not all selected; otherwise clear selection. */
