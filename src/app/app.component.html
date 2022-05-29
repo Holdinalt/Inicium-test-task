@@ -24,16 +24,18 @@
       <th>E-mail</th>
       <th>Номер телефона</th>
     </tr>
-    <tr class="row" *ngFor="let row of rows">
-      <td>
-          <mat-checkbox (click)="$event.stopPropagation()"
-                        (change)="$event ? this.tableHandlerService.toggleRow(row) : null"
-                        [checked]="row.selected">
-          </mat-checkbox>
-      </td>
-      <td class="hovers">{{row.name}}</td>
-      <td class="hovers">{{row.email}}</td>
-      <td class="hovers">{{row.phone}}</td>
+
+    <tr class="row" appEdit *ngFor="let _row of rows; let i = index" [row]="_row">
+
+      <mat-checkbox (click)="$event.stopPropagation()" class='tableCheckbox'
+                    (change)="$event ? this.tableHandlerService.toggleRow(_row) : null"
+                    [checked]="_row.selected">
+      </mat-checkbox>
+      <td class="hovers" >{{_row.name}}</td>
+      <td class="hovers">{{_row.email}}</td>
+      <td class="hovers">{{_row.phone}}</td>
+      <td>{{_row.selected}}</td>
+
     </tr>
   </table>
 

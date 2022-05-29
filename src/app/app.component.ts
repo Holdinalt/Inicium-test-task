@@ -4,12 +4,6 @@ import {RowModel} from "./row.model";
 import { MatPaginator } from '@angular/material/paginator';
 import {MatTableDataSource} from "@angular/material/table";
 
-export class PaginationInterface{
-
-  constructor(public maxRows = 0, public page = 0) {
-  }
-}
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -20,8 +14,7 @@ export class AppComponent implements OnInit{
 
   title = 'Inicium-test-task';
 
-  rows?: RowModel[]
-  // columns?: string[]
+  rows: RowModel[] = []
 
   paginationArr = [4 , 5 , 10]
 
@@ -35,7 +28,6 @@ export class AppComponent implements OnInit{
     this.paginator.page.subscribe(x =>{
       this.tableHandlerService.paginateRows(x.pageIndex, x.pageSize);
     })
-
 
   }
 
@@ -57,47 +49,6 @@ export class AppComponent implements OnInit{
       return;
     }
     this.tableHandlerService.selectAll();
-  }
-
-  showEditUI(event: Event){
-
-    let child = document.createElement('div');
-    child.append('lol');
-    child.setAttribute('id', 'editUI')
-
-    let elem: HTMLElement = event.target as HTMLElement
-    if(elem.parentElement && elem.tagName === 'TD' && elem.parentElement.tagName === 'TR'){
-      console.log(elem.tagName)
-      elem = elem.parentElement;
-      elem.appendChild(
-        child
-      )
-    }
-    // console.log(elem.parentElement)
-
-
-
-
-  }
-
-  hideEditUI(event: Event){
-
-
-    let elem = document.getElementById('editUI')
-
-    if(elem){
-      elem.remove();
-      elem = document.getElementById('editUI')
-    }
-
-
-
-    // let elem: HTMLElement = event.target as HTMLElement
-    // if(elem.parentElement && elem.parentElement.className != 'table'){
-    //   elem = elem.parentElement;
-    //   elem.removeChild()
-    // }
-
   }
 
 

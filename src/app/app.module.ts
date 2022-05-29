@@ -6,10 +6,12 @@ import {MatTableModule} from "@angular/material/table";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { EditDirective } from './edit.directive';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    EditDirective
   ],
   imports: [
     BrowserModule,
