@@ -2,76 +2,46 @@
 <div class="main">
   <div class="tool-bar">
 
-    <div class="icon">
+    <div class="icon" (click)="tableHandlerService.addEmptyRow(paginator.pageIndex, paginator.pageSize)">
       <img src="assets/icons/plus-icon.png" alt="Добавить запись">
     </div>
-    <div class="icon">
-      <img src="assets/icons/bin-icon.png" alt="Удалить звписи">
+    <div class="icon" (click)="tableHandlerService.deleteSelected(0, paginator.pageSize); this.paginator.firstPage()">
+      <img src="assets/icons/bin-icon.png" alt="Удалить звписи" >
     </div>
 
   </div>
-<!--  <div class="table">-->
-<!--    <div class="row">-->
-<!--      <div><input type="checkbox" style="height: 16px; width: 16px"></div>-->
-<!--      <div>Имя</div>-->
-<!--      <div>E-mail</div>-->
-<!--      <div>Номер телефона</div>-->
-<!--    </div>-->
-<!--    <div class="row">-->
-<!--      <div><input type="checkbox" style="height: 16px; width: 16px"></div>-->
-<!--      <div>Александр Петров</div>-->
-<!--      <div>petrov@mail.ru</div>-->
-<!--      <div>+79061856195</div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--  <div class="pagination">-->
+  <table class="table">
+    <tr class="row">
+      <th >
+                <mat-checkbox (change)="$event ? masterToggle() : null"
+                              [checked]="this.tableHandlerService.selectedRowsNum > 0 && this.tableHandlerService.isAllSelected()"
+                              [indeterminate]="this.tableHandlerService.selectedRowsNum > 0 && !this.tableHandlerService.isAllSelected()"
+                >
+        <!--                      [aria-label]="checkboxLabel()"-->
+                </mat-checkbox>
+      </th>
+      <th>Имя</th>
+      <th>E-mail</th>
+      <th>Номер телефона</th>
+    </tr>
+    <tr class="row" *ngFor="let row of rows">
+      <td>
+          <mat-checkbox (click)="$event.stopPropagation()"
+                        (change)="$event ? this.tableHandlerService.toggleRow(row) : null"
+                        [checked]="row.selected">
+          </mat-checkbox>
+      </td>
+      <td class="hovers">{{row.name}}</td>
+      <td class="hovers">{{row.email}}</td>
+      <td class="hovers">{{row.phone}}</td>
+    </tr>
+  </table>
 
-<!--  </div>-->
 
 <div>
-<!--  <table *ngIf="this.rows && this.columns && dataSource" mat-table [dataSource]="dataSource">-->
-
-<!--    &lt;!&ndash; Checkbox Column &ndash;&gt;-->
-<!--    <ng-container matColumnDef="select">-->
-<!--      <th mat-header-cell *matHeaderCellDef>-->
-<!--        <mat-checkbox (change)="$event ? masterToggle() : null"-->
-<!--                      [checked]="this.tableHandlerService.selectedRowsNum > 0 && this.tableHandlerService.isAllSelected()"-->
-<!--                      [indeterminate]="this.tableHandlerService.selectedRowsNum > 0 && !this.tableHandlerService.isAllSelected()"-->
-<!--        >-->
-<!--&lt;!&ndash;                      [aria-label]="checkboxLabel()"&ndash;&gt;-->
-<!--        </mat-checkbox>-->
-<!--      </th>-->
-<!--      <td mat-cell *matCellDef="let row">-->
-<!--        <mat-checkbox (click)="$event.stopPropagation()"-->
-<!--                      (change)="$event ? this.tableHandlerService.toggleRow(row) : null"-->
-<!--                      [checked]="row.selected">-->
-<!--&lt;!&ndash;                      [aria-label]="checkboxLabel(row)"&ndash;&gt;-->
-<!--        </mat-checkbox>-->
-<!--      </td>-->
-<!--    </ng-container>-->
-
-<!--    <ng-container matColumnDef="name">-->
-<!--      <th mat-header-cell *matHeaderCellDef>Имя</th>-->
-<!--      <td mat-cell *matCellDef="let element"> {{element.name}} </td>-->
-<!--    </ng-container>-->
-
-<!--    <ng-container matColumnDef="email">-->
-<!--      <th mat-header-cell *matHeaderCellDef>E-mail</th>-->
-<!--      <td mat-cell *matCellDef="let element"> {{element.email}} </td>-->
-<!--    </ng-container>-->
-
-<!--    <ng-container matColumnDef="phone">-->
-<!--      <th mat-header-cell *matHeaderCellDef>Номер телефона</th>-->
-<!--      <td mat-cell *matCellDef="let element"> {{element.phone}} </td>-->
-<!--    </ng-container>-->
-
-<!--    <tr mat-header-row *matHeaderRowDef="columns"></tr>-->
-<!--    <tr mat-row *matRowDef="let row; columns: columns;"></tr>-->
-<!--  </table>-->
-
-  <mat-paginator *ngIf="rows" [pageSizeOptions]="[2, 3, 4]"
+  <mat-paginator *ngIf="rows" [pageSizeOptions]="this.paginationArr"
                  showFirstLastButtons
-                 [length]="rows.length"
+                 [length]="this.tableHandlerService.rows.length"
   >
   </mat-paginator>
 </div>

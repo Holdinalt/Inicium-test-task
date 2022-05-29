@@ -29,33 +29,45 @@
   height: 18px;
 }
 
-.table {
-  width: 100%;
-  color: #2E2E2E;
-  font-family: Roboto;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 20px;
+tr{
+  background: antiquewhite;
+
+}
+tr:hover > .hovers{
+  background: aqua;
 }
 
-.table .row{
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding: 6px 12px;
-
-  background: #F7F7F7;
-
-  height: 48px;
-
-  /* Border/Bottom */
-
-  box-shadow: inset 0 -1px 0 #F2F2F2;
+td{
+  padding-left: 10px;
 }
 
-.table .row div{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+/*.table {*/
+/*  width: 100%;*/
+/*  color: #2E2E2E;*/
+/*  font-family: Roboto;*/
+/*  font-weight: 400;*/
+/*  font-size: 14px;*/
+/*  line-height: 20px;*/
+/*}*/
+
+/*.table .row{*/
+/*  display: flex;*/
+/*  flex-direction: row;*/
+/*  align-items: center;*/
+/*  padding: 6px 12px;*/
+
+/*  background: #F7F7F7;*/
+
+/*  height: 48px;*/
+
+/*  !* Border/Bottom *!*/
+
+/*  box-shadow: inset 0 -1px 0 #F2F2F2;*/
+/*}*/
+
+/*.table .row div{*/
+/*  display: flex;*/
+/*  align-items: center;*/
+/*  justify-content: center;*/
+/*}*/
 
