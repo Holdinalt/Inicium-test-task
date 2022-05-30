@@ -20,6 +20,12 @@ export class AppComponent implements OnInit{
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
+  editPhase = false;
+
+  editPhaseSet(bol: boolean){
+    this.editPhase = bol;
+  }
+
   ngOnInit(): void {
 
   }

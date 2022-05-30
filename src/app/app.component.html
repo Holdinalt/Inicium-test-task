@@ -25,16 +25,21 @@
       <th>Номер телефона</th>
     </tr>
 
-    <tr class="row" appEdit *ngFor="let _row of rows; let i = index" [row]="_row">
+    <tr class="row" appEdit *ngFor="let _row of rows; let i = index" [row]="_row" [editPhase]="this.editPhase" (editStart)="this.editPhaseSet($event)">
 
       <mat-checkbox (click)="$event.stopPropagation()" class='tableCheckbox'
                     (change)="$event ? this.tableHandlerService.toggleRow(_row) : null"
                     [checked]="_row.selected">
       </mat-checkbox>
-      <td class="hovers" >{{_row.name}}</td>
-      <td class="hovers">{{_row.email}}</td>
-      <td class="hovers">{{_row.phone}}</td>
-      <td>{{_row.selected}}</td>
+      <td class="hovers data"><div class="name">
+        <span>{{_row.name}}</span>
+      </div></td>
+      <td class="hovers data"><div class="email">
+        <span>{{_row.email}}</span>
+      </div></td>
+      <td class="hovers data"><div class="phone">
+        <span>{{_row.phone}}</span>
+      </div></td>
 
     </tr>
   </table>
