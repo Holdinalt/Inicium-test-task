@@ -58,7 +58,10 @@ export class EditDirective implements AfterViewInit{
         childDiv.style.display = 'flex';
         childDiv.style.alignItems = 'center';
         childDiv.style.cursor = 'pointer'
-        // childDiv.style.background = 'linear-gradient(270deg, rgba(255, 255, 255, 0) 0%, #EEEFEF 100%);'\
+        childDiv.style.width = '321px'
+        childDiv.style.justifyContent = 'flex-end'
+        childDiv.style.background = 'linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #EEEFEF 100%)'
+        childDiv.style.height = '100%'
         childDiv.addEventListener("click", () => {
           this.startEdit(this.row)
         })
@@ -146,18 +149,22 @@ export class EditDirective implements AfterViewInit{
     this.hideEditIco();
     this.editing = true
 
-    // let inp = document.createElement('input')
-    // let inp2 = inp.cloneNode();
+    let inp = document.createElement('input')
+    inp.style.border = 'none'
+    inp.style.background = '#E6F2FF'
+    inp.style.borderRadius = '8px'
+    inp.style.height = '38px'
+    inp.style.color = '#2E2E2E'
+    inp.style.paddingLeft = '4px'
 
     if(_row){
 
       if(this.nameCell){
         let nameSpan = this.nameCell.children[0]
 
-        console.log(nameSpan)
         nameSpan.setAttribute('style', 'display: none')
 
-        let input = document.createElement("input");
+        let input = inp.cloneNode(true) as HTMLInputElement;
         input.setAttribute('class', 'name')
         input.setAttribute('name', 'nameInput')
         input.value = _row.name.toString()
@@ -171,7 +178,7 @@ export class EditDirective implements AfterViewInit{
         let emailSpan = this.emailCell.children[0]
         emailSpan.setAttribute('style', 'display: none')
 
-        let input = document.createElement("input");
+        let input = inp.cloneNode(true) as HTMLInputElement;
         input.setAttribute('class', 'email')
         input.setAttribute('name', 'emailInput')
         input.value = _row.email.toString()
@@ -185,7 +192,7 @@ export class EditDirective implements AfterViewInit{
         let phoneSpan = this.phoneCell.children[0]
         phoneSpan.setAttribute('style', 'display: none')
 
-        let input = document.createElement("input");
+        let input = inp.cloneNode(true) as HTMLInputElement;
         input.setAttribute('class', 'phone')
         input.setAttribute('name', 'phoneInput')
 

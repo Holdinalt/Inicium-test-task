@@ -24,6 +24,11 @@
     "surname": "Борисов",
     "email": "borisov@gmail.com",
     "phone": ""
-  }
+  }, {
+      "name": "Анатолий",
+      "surname": "Брынза",
+      "email": "Brinza@gmail.com",
+      "phone": ""
+    }
   ]
 }
