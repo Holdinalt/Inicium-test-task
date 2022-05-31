@@ -1,8 +1,8 @@
-import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
+import { Component, ViewChild} from '@angular/core';
 import {TableHandlerService} from "./table-handler.service";
 import {RowModel} from "./row.model";
-import {MatPaginator, MatPaginatorIntl} from '@angular/material/paginator';
-import {MatTableDataSource} from "@angular/material/table";
+import {MatPaginator} from '@angular/material/paginator';
+
 
 
 
@@ -12,16 +12,20 @@ import {MatTableDataSource} from "@angular/material/table";
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent implements OnInit{
+export class AppComponent{
 
   title = 'Inicium-test-task';
 
+  // Держим массив с записяси, которые нужно показать
   rows: RowModel[] = []
 
+  // Опции пагинатора
   paginationArr = [4 , 5 , 10]
 
+  // Пагинатор
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
+  // Обертка вокруг логики размера страницы
   get tablePageSize(){
     if(this.paginator){
       return this.paginator.pageSize
@@ -36,49 +40,38 @@ export class AppComponent implements OnInit{
     }
   }
 
-  // paginator = new MatPaginator(new MatPaginatorIntl())
-
-
+  // Пременная следящая, чтобы можно было изменять только одну строку
   editPhase = false;
 
   editPhaseSet(bol: boolean){
     this.editPhase = bol;
+    // При выходе из фазы именения, сохранить таблицу
     if(!this.editPhase){
       this.tableHandlerService.save()
     }
   }
 
-  ngOnInit(): void {
-
-  }
-
   ngAfterViewInit() {
 
-    console.log(window.innerWidth)
-
+    // Подписываемся на изменения состояния пагинатора, чтобы листать страница
     this.paginator.page.subscribe(x =>{
+      // Запрашиваем пересбор записей, которые нужно показать
       this.tableHandlerService.paginateRows(x.pageIndex, x.pageSize);
     })
-
-    // this.paginator.pageSize = this.paginationArr[0]
   }
 
   constructor(public tableHandlerService: TableHandlerService) {
-
-    // this.columns = tableHandlerService.columns;
+    // Подписываемся на изменение пула записей, которые нужно показать
     this.tableHandlerService.rowsToShowOut?.subscribe(x =>{
       this.rows = x;
     })
 
-    // this.paginator.pageSize = this.paginationArr[0];
-    // this.paginator.length = this.tableHandlerService.rows.length
-
+    // Производим начальную пагинацию и сборку записей
     this.tableHandlerService.paginateRows(0, this.paginationArr[0])
   }
 
 
-
-  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  // Вспомогательная функция для главного чекбокса
   masterToggle() {
     if (this.tableHandlerService.isAllSelected()) {
       this.tableHandlerService.clearSelection();
@@ -87,12 +80,4 @@ export class AppComponent implements OnInit{
     this.tableHandlerService.selectAll();
   }
 
-
-  /** The label for the checkbox on the passed row */
-  // checkboxLabel(row?: PeriodicElement): string {
-  //   if (!row) {
-  //     return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
-  //   }
-  //   return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
-  // }
 }

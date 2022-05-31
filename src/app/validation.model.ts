@@ -1,5 +1,7 @@
 export class ValidationModel{
 
+  // Класс для валидации
+
   static nameRegex = /^([А-Яа-я]\s?){1,255}$/;
   static emailRegex =/^[a-z\d._%+-]+@[a-z\d.-]+\.[a-z]{2,4}$/
   static phoneRegex = /^\+7\d{10}$/

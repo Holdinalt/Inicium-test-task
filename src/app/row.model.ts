@@ -1,4 +1,7 @@
+// Модель в коорой хранятся записи
 export class RowModel{
+  // Стандартные значения
+  // TODO Нужно переделать в undefined
   name = 'No Name'
   selected = false;
   email = 'example@mail.com'

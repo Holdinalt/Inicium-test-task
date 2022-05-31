@@ -150,79 +150,6 @@
   margin-top: -5px;
 }
 
-
-
-
-/*nooo*/
-
-/*tr{*/
-/*  background: antiquewhite;*/
-
-/*}*/
-/*tr:hover > .hovers{*/
-/*  background: aqua;*/
-/*}*/
-
-
-
-/*td{*/
-/*  padding-left: 10px;*/
-/*}*/
-
-/*nooo*/
-
-/*.table {*/
-/*  width: 100%;*/
-/*  color: #2E2E2E;*/
-/*  font-family: Roboto;*/
-/*  font-weight: 400;*/
-/*  font-size: 14px;*/
-/*  line-height: 20px;*/
-/*}*/
-
-/*.table .row{*/
-/*  display: flex;*/
-/*  flex-direction: row;*/
-/*  align-items: center;*/
-/*  padding: 6px 12px;*/
-
-/*  background: #F7F7F7;*/
-
-/*  height: 48px;*/
-
-/*  !* Border/Bottom *!*/
-
-/*  box-shadow: inset 0 -1px 0 #F2F2F2;*/
-/*}*/
-
-/*.table{*/
-/*  display: table;*/
-/*  border-style: none;*/
-
-/*}*/
-
-/*.table .head{*/
-/*  background: #F7F7F7 ;*/
-/*}*/
-
-
-/*.table td div, .table th span{*/
-/*  display: flex;*/
-/*  justify-content: flex-start;*/
-
-/*  !*padding: 4px 9px;*!*/
-/*}*/
-
-/*.table td > div, table th span{*/
-/*  padding: 14px 12px;*/
-/*}*/
-
-/*.table mat-checkbox{*/
-/*  padding-left: 12px;*/
-/*  padding-top: 16px;*/
-/*  padding-bottom: 16px;*/
-/*}*/
-
 .table-wrapper{
   overflow: auto;
   position: relative;
@@ -273,10 +200,8 @@
 }
 
 span{
-  /* web/sm/regular */
   font-family: Roboto, sans-serif;
   padding: 9px 0;
-  /*font-family: "Roboto Light";*/
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
@@ -303,14 +228,8 @@ span{
   justify-content: flex-end;
   align-items: center
 
-  /*transform: matrix(-1, 0, 0, 1, 0, 0);*/
 }
 
-/*.edit-ico{*/
-/*  background: linear-gradient(270deg, rgba(255, 255, 255, 0) 0%, #EEEFEF 100%);*/
-/*  display: flex;*/
-/*  align-items: center;*/
-/*}*/
 
 input{
   background-color: #263238;
