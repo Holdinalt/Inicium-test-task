@@ -6,7 +6,7 @@ import {
   HostListener,
   Input,
   OnChanges,
-  OnInit, Output,
+  OnInit, Output, Renderer2,
   SimpleChanges
 } from '@angular/core';
 import {RowModel} from "./row.model";
@@ -35,7 +35,7 @@ export class EditDirective implements AfterViewInit{
 
 
 
-  constructor(private elementRef: ElementRef){
+  constructor(private elementRef: ElementRef, private renderer: Renderer2){
   }
 
   ngAfterViewInit(): void {
@@ -59,7 +59,9 @@ export class EditDirective implements AfterViewInit{
         childDiv.style.alignItems = 'center';
         childDiv.style.cursor = 'pointer'
         // childDiv.style.background = 'linear-gradient(270deg, rgba(255, 255, 255, 0) 0%, #EEEFEF 100%);'\
-        childDiv.addEventListener("click", () => this.startEdit(this.row))
+        childDiv.addEventListener("click", () => {
+          this.startEdit(this.row)
+        })
 
         let childIco = document.createElement('img');
         childIco.src = 'assets/icons/edit-icon.png'
@@ -90,12 +92,28 @@ export class EditDirective implements AfterViewInit{
     childSave.addEventListener("click", () => this.acceptEdits(this.row))
     childSave.setAttribute('id', 'editUISave')
     childSave.setAttribute('name', 'editUISave')
+    childSave.style.color = '#FFFFFF'
+    childSave.style.cursor = 'pointer'
+    childSave.style.border = 'none'
+    childSave.style.background = '#0080FF'
+    childSave.style.borderRadius = '8px'
+    childSave.style.height = '36px'
+    childSave.style.width = '89px'
 
     let childCancel = document.createElement('button');
     childCancel.append('Отменить');
     childCancel.addEventListener("click", () => this.cancelEdits())
     childCancel.setAttribute('id', 'cancelUI')
     childCancel.setAttribute('name', 'cancelUI')
+    childCancel.style.background = '#FFFFFF'
+    childCancel.style.border = '1px solid'
+    childCancel.style.borderColor = '#979797'
+    childCancel.style.color = '#979797'
+    childCancel.style.borderRadius = '8px'
+    childCancel.style.cursor = 'pointer'
+    childCancel.style.height = '36px'
+    childCancel.style.width = '89px'
+    childCancel.style.marginLeft = '8px'
 
     if(elem){
       elem.appendChild(childSave)
@@ -127,6 +145,9 @@ export class EditDirective implements AfterViewInit{
 
     this.hideEditIco();
     this.editing = true
+
+    // let inp = document.createElement('input')
+    // let inp2 = inp.cloneNode();
 
     if(_row){
 

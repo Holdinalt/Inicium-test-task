@@ -281,6 +281,7 @@ span{
   display: flex;
   flex: 1 0 30px;
   justify-content: flex-end;
+  align-items: center
 
   /*transform: matrix(-1, 0, 0, 1, 0, 0);*/
 }
@@ -291,5 +292,8 @@ span{
 /*  align-items: center;*/
 /*}*/
 
+input{
+  background-color: #263238;
+}
 
 
