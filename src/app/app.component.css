@@ -31,6 +31,7 @@
 }
 
 .pagination{
+  font-family: Roboto, sans-serif;
   display: flex;
   justify-content: space-between;
 }
@@ -39,11 +40,14 @@
   display: inline-flex;
   flex-direction: row;
   padding: 16px 12px;
+  justify-content: center;
+  align-items: center;
 }
 
 .pagination .page-size .select{
   height: 24px;
   width: 45px;
+  margin-left: 8px;
   align-items: center;
   justify-content: center;
 }
@@ -59,7 +63,6 @@
   height: 24px;
   width: 128px;
 
-  font-family: 'Roboto', serif;
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
@@ -80,14 +83,16 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+
 }
 
 .pagination .controls span{
 
   height: 24px;
   width: 128px;
+  justify-content: center;
 
-  font-family: 'Roboto', serif;
+  font-family: Roboto;
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
@@ -269,9 +274,9 @@
 
 span{
   /* web/sm/regular */
-
+  font-family: Roboto, sans-serif;
   padding: 9px 0;
-  font-family: 'Roboto', serif;
+  /*font-family: "Roboto Light";*/
   font-style: normal;
   font-weight: 400;
   font-size: 14px;

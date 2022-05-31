@@ -78,10 +78,10 @@
 <main>
   <div class="tool-bar">
     <div class="icon" (click)="tableHandlerService.addEmptyRow(paginator.pageIndex, paginator.pageSize)">
-      <img src="assets/icons/plus-icon.png" alt="Добавить запись">
+      <img src="assets/icons/plus-icon.svg" alt="Добавить запись">
     </div>
     <div class="icon" (click)="tableHandlerService.deleteSelected(0, paginator.pageSize); this.paginator.firstPage()">
-      <img src="assets/icons/bin-icon.png" alt="Удалить звписи">
+      <img src="assets/icons/bin-icon.svg" alt="Удалить звписи">
     </div>
   </div>
 
@@ -174,15 +174,15 @@
 
     <div class="controls">
       <div class="icon">
-        <img src="assets/icons/paginator/fast-left-icon.png" alt="" (click)="paginator.firstPage()">
+        <img src="assets/icons/paginator/fast-left-icon.svg" alt="" (click)="paginator.firstPage()">
       </div>
 
       <span>Страница {{ paginator ? paginator.pageIndex + 1 : 1}} из {{ paginator ? paginator.getNumberOfPages() : 'none'}}</span>
       <div class="icon">
-        <img src="assets/icons/paginator/left-icon.png" alt="" (click)="paginator.previousPage()">
+        <img src="assets/icons/paginator/left-icon.svg" alt="" (click)="paginator.previousPage()">
       </div>
       <div class="icon">
-        <img src="assets/icons/paginator/right-icon.png" alt="" (click)="paginator.nextPage()">
+        <img src="assets/icons/paginator/right-icon.svg" alt="" (click)="paginator.nextPage()">
       </div>
 
 

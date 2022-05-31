@@ -10,6 +10,7 @@ import {
   SimpleChanges
 } from '@angular/core';
 import {RowModel} from "./row.model";
+import {ValidationModel} from "./validation.model";
 
 @Directive({
   selector: '[appEdit]'
@@ -67,7 +68,8 @@ export class EditDirective implements AfterViewInit{
         })
 
         let childIco = document.createElement('img');
-        childIco.src = 'assets/icons/edit-icon.png'
+        childIco.src = 'assets/icons/edit-icon.svg'
+        childIco.style.marginRight = '25px'
         // this.startEdit(this.row)
 
         childDiv.appendChild(childIco);
@@ -85,7 +87,7 @@ export class EditDirective implements AfterViewInit{
     }
   }
 
-  showEditUI() {
+  showEditUI(): HTMLButtonElement {
 
     let elem = this.editIconCell
 
@@ -102,6 +104,7 @@ export class EditDirective implements AfterViewInit{
     childSave.style.borderRadius = '8px'
     childSave.style.height = '36px'
     childSave.style.width = '89px'
+    childSave.name = '0'
 
     let childCancel = document.createElement('button');
     childCancel.append('Отменить');
@@ -123,6 +126,7 @@ export class EditDirective implements AfterViewInit{
       elem.appendChild(childCancel)
     }
 
+    return childSave;
 
   }
 
@@ -159,6 +163,8 @@ export class EditDirective implements AfterViewInit{
 
     if(_row){
 
+      let saveButton = this.showEditUI();
+
       if(this.nameCell){
         let nameSpan = this.nameCell.children[0]
 
@@ -168,7 +174,8 @@ export class EditDirective implements AfterViewInit{
         input.setAttribute('class', 'name')
         input.setAttribute('name', 'nameInput')
         input.value = _row.name.toString()
-
+        input.addEventListener('change', () => this.nameValidator(input, saveButton));
+        console.log(input)
 
         this.nameCell.appendChild(input)
       }
@@ -182,6 +189,7 @@ export class EditDirective implements AfterViewInit{
         input.setAttribute('class', 'email')
         input.setAttribute('name', 'emailInput')
         input.value = _row.email.toString()
+        input.addEventListener('change', () => this.emailValidator(input, saveButton));
 
 
         this.emailCell.appendChild(input)
@@ -195,6 +203,7 @@ export class EditDirective implements AfterViewInit{
         let input = inp.cloneNode(true) as HTMLInputElement;
         input.setAttribute('class', 'phone')
         input.setAttribute('name', 'phoneInput')
+        input.addEventListener('change', () => this.phoneValidator(input, saveButton));
 
         if(_row.phone){
           input.value = _row.phone.toString()
@@ -204,8 +213,6 @@ export class EditDirective implements AfterViewInit{
       }
 
     }
-
-    this.showEditUI();
 
   }
 
@@ -279,7 +286,67 @@ export class EditDirective implements AfterViewInit{
     this.endEdit();
   }
 
+  // validate(inputName: HTMLInputElement,
+  //          inputEmail: HTMLInputElement,
+  //          inputPhone: HTMLInputElement,
+  //          disButton: HTMLButtonElement){
+  //
+  //   if((
+  //       ValidationModel.validateName(inputName.value) ||
+  //       ValidationModel.validateEmail(inputEmail.value) ||
+  //       ValidationModel.validatePhone(inputPhone.value)
+  //   )){
+  //
+  //   }
+  //
+  // }
 
+  nameValidator(input: HTMLInputElement, disButton: HTMLButtonElement){
+    if(!ValidationModel.validateName(input.value)){
+      this.validationError(input, disButton)
+    }else{
+      this.validationGood(input, disButton)
+    }
+
+  }
+
+  phoneValidator(input: HTMLInputElement, disButton: HTMLButtonElement){
+    if(!ValidationModel.validatePhone(input.value)){
+      this.validationError(input, disButton)
+    }else{
+      this.validationGood(input, disButton)
+    }
+  }
+
+  emailValidator(input: HTMLInputElement, disButton: HTMLButtonElement){
+    if(!ValidationModel.validateEmail(input.value)){
+      this.validationError(input, disButton)
+    }else{
+      this.validationGood(input, disButton)
+    }
+  }
+
+  validationError(input: HTMLInputElement, disButton: HTMLButtonElement){
+    disButton.disabled = true;
+    disButton.name = (Number.parseInt(disButton.name) + 1).toString();
+    disButton.style.opacity = '0.4';
+    input.style.background = '#FFE5E5'
+  }
+
+  validationGood(input: HTMLInputElement, disButton: HTMLButtonElement){
+
+    input.style.background = '#E6F2FF'
+
+    let errors = Number.parseInt(disButton.name)
+    if(errors <= 1){
+      disButton.disabled = false
+      disButton.style.opacity = '1';
+    }
+
+    if(errors > 0){
+      disButton.name = (Number.parseInt(disButton.name) - 1).toString();
+    }
+  }
 
 }
 
