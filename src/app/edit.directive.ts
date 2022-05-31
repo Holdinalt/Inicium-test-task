@@ -20,9 +20,10 @@ export class EditDirective implements AfterViewInit{
   @Input() editPhase = false;
   @Output() editStart = new EventEmitter<boolean>();
 
-  nameCell?: Element;
-  emailCell?: Element;
-  phoneCell?: Element;
+  @Input() nameCell?: Element;
+  @Input() emailCell?: Element;
+  @Input() phoneCell?: Element;
+  @Input() editIconCell?: Element;
 
   public set editing(bol: boolean){
     this.editStart.next(bol);
@@ -39,33 +40,40 @@ export class EditDirective implements AfterViewInit{
 
   ngAfterViewInit(): void {
     let elem: HTMLElement = this.elementRef.nativeElement as HTMLElement
-    this.findScopeCells(elem)
   }
 
 
-  @HostListener('mouseover') showEditIco(){
-    let elem: HTMLElement = this.elementRef.nativeElement as HTMLElement
+  @HostListener('mouseenter') showEditIco(){
+    let elem = this.editIconCell;
 
-    if(!this.editing){
+    if(!this.editing && elem){
 
       if(!elem.children.namedItem("editIco")){
 
         this.hideEditIco()
 
+        let childDiv = document.createElement('div');
+        childDiv.setAttribute('class', 'edit-ico')
+        childDiv.setAttribute('id', 'editIcoDiv')
+        childDiv.style.display = 'flex';
+        childDiv.style.alignItems = 'center';
+        childDiv.style.cursor = 'pointer'
+        // childDiv.style.background = 'linear-gradient(270deg, rgba(255, 255, 255, 0) 0%, #EEEFEF 100%);'\
+        childDiv.addEventListener("click", () => this.startEdit(this.row))
+
         let childIco = document.createElement('img');
         childIco.src = 'assets/icons/edit-icon.png'
-        childIco.setAttribute('name', 'editIco')
-        childIco.setAttribute('id', 'editIco')
+        // this.startEdit(this.row)
 
-        childIco.addEventListener("click", () => this.startEdit(this.row, elem))
+        childDiv.appendChild(childIco);
 
-        elem.appendChild(childIco);
+        elem.appendChild(childDiv)
       }
     }
   }
 
   hideEditIco(){
-    let elemEditIco = document.getElementById('editIco')
+    let elemEditIco = document.getElementById('editIcoDiv')
 
     if(elemEditIco){
       elemEditIco.remove();
@@ -74,7 +82,8 @@ export class EditDirective implements AfterViewInit{
 
   showEditUI() {
 
-    let elem: HTMLElement = this.elementRef.nativeElement as HTMLElement
+    let elem = this.editIconCell
+
 
     let childSave = document.createElement('button');
     childSave.append('Сохранить');
@@ -84,12 +93,15 @@ export class EditDirective implements AfterViewInit{
 
     let childCancel = document.createElement('button');
     childCancel.append('Отменить');
-    // childSave.addEventListener("click", () => this.startEdit(this.row))
+    childCancel.addEventListener("click", () => this.cancelEdits())
     childCancel.setAttribute('id', 'cancelUI')
     childCancel.setAttribute('name', 'cancelUI')
 
-    elem.appendChild(childSave)
-    elem.appendChild(childCancel)
+    if(elem){
+      elem.appendChild(childSave)
+      elem.appendChild(childCancel)
+    }
+
 
   }
 
@@ -111,7 +123,7 @@ export class EditDirective implements AfterViewInit{
 
 
 
-  startEdit(_row: RowModel | undefined, elem: HTMLElement){
+  startEdit(_row: RowModel | undefined){
 
     this.hideEditIco();
     this.editing = true
@@ -120,12 +132,15 @@ export class EditDirective implements AfterViewInit{
 
       if(this.nameCell){
         let nameSpan = this.nameCell.children[0]
+
+        console.log(nameSpan)
         nameSpan.setAttribute('style', 'display: none')
 
         let input = document.createElement("input");
         input.setAttribute('class', 'name')
         input.setAttribute('name', 'nameInput')
         input.value = _row.name.toString()
+
 
         this.nameCell.appendChild(input)
       }
@@ -206,56 +221,33 @@ export class EditDirective implements AfterViewInit{
 
   }
 
-  findScopeCells(elem: HTMLElement){
-
-    for(let i = 0; i < elem.children.length; i++) {
-      if (elem.children[i].tagName == "TD") {
-        let child = elem.children[i].children[0]
-
-        switch (child.className) {
-
-          case 'name': {
-
-            this.nameCell = child;
-            break
-          }
-
-          case 'email': {
-
-            this.emailCell = child
-            break
-          }
-
-          case 'phone': {
-
-            this.phoneCell = child;
-            break
-          }
-        }
-      }
-    }
-  }
 
   acceptEdits(row: RowModel | undefined){
     let nameInput = this.nameCell?.children.namedItem('nameInput');
-    let phoneInput = this.phoneCell?.children.namedItem('phoneInput')
     let emailInput = this.emailCell?.children.namedItem('emailInput')
+    let phoneInput = this.phoneCell?.children.namedItem('phoneInput')
 
     if(nameInput){
       // @ts-ignore
-      console.log(nameInput.value)
+      this.row?.name = nameInput.value;
     }
 
     if(emailInput){
       // @ts-ignore
-      console.log(emailInput.value)
+      this.row?.email = emailInput.value
     }
 
     if(phoneInput){
       // @ts-ignore
-      console.log(phoneInput.value)
+      this.row?.phone = phoneInput.value
     }
 
+    console.log(this.row)
+
+    this.endEdit();
+  }
+
+  cancelEdits(){
     this.endEdit();
   }
 

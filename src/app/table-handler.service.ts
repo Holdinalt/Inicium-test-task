@@ -30,6 +30,10 @@ export class TableHandlerService{
     this.localStorageControllerService.saveTable(this.rows)
   }
 
+  save(){
+    this.localStorageControllerService.saveTable(this.rows)
+  }
+
   deleteSelected(page: number, pageSize: number): void{
     let newRows: RowModel[] = []
 

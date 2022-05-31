@@ -1,56 +1,194 @@
-<body>
-<div class="main">
-  <div class="tool-bar">
+<!--<body>-->
+<!--<div class="main">-->
+<!--  <div class="tool-bar">-->
 
+<!--    <div class="icon" (click)="tableHandlerService.addEmptyRow(paginator.pageIndex, paginator.pageSize)">-->
+<!--      <img src="assets/icons/plus-icon.png" alt="Добавить запись">-->
+<!--    </div>-->
+<!--    <div class="icon" (click)="tableHandlerService.deleteSelected(0, paginator.pageSize); this.paginator.firstPage()">-->
+<!--      <img src="assets/icons/bin-icon.png" alt="Удалить звписи" >-->
+<!--    </div>-->
+
+<!--  </div>-->
+<!--  <table class="table">-->
+<!--    <tr class="row head">-->
+<!--      <th>-->
+<!--        <mat-checkbox (change)="$event ? masterToggle() : null"-->
+<!--                      [checked]="this.tableHandlerService.selectedRowsNum > 0 && this.tableHandlerService.isAllSelected()"-->
+<!--                      [indeterminate]="this.tableHandlerService.selectedRowsNum > 0 && !this.tableHandlerService.isAllSelected()"-->
+<!--        >-->
+<!--          &lt;!&ndash;                      [aria-label]="checkboxLabel()"&ndash;&gt;-->
+<!--        </mat-checkbox>-->
+<!--      </th>-->
+
+<!--      <th><span>Имя</span></th>-->
+<!--      <th><span>E-mail</span></th>-->
+<!--      <th><span>Номер телефона</span></th>-->
+<!--    </tr>-->
+
+<!--    <tr class="row" appEdit *ngFor="let _row of rows; let i = index" [row]="_row" [editPhase]="this.editPhase" (editStart)="this.editPhaseSet($event)">-->
+
+<!--      <td>-->
+<!--        <mat-checkbox (click)="$event.stopPropagation()" class='tableCheckbox'-->
+<!--                      (change)="$event ? this.tableHandlerService.toggleRow(_row) : null"-->
+<!--                      [checked]="_row.selected">-->
+<!--        </mat-checkbox>-->
+<!--      </td>-->
+<!--      <td class="hovers data"><div class="name">-->
+<!--        <span>{{_row.name}}</span>-->
+<!--      </div></td>-->
+<!--      <td class="hovers data"><div class="email">-->
+<!--        <span>{{_row.email}}</span>-->
+<!--      </div></td>-->
+<!--      <td class="hovers data"><div class="phone">-->
+<!--        <span>{{_row.phone}}</span>-->
+<!--      </div></td>-->
+<!--      <td name="UItd"><div name="UI"></div>-->
+
+<!--      </td>-->
+
+<!--    </tr>-->
+<!--  </table>-->
+
+<!--&lt;!&ndash;убрать&ndash;&gt;-->
+<!--<div style="display: none">-->
+<!--  <mat-paginator *ngIf="rows" [pageSizeOptions]="this.paginationArr"-->
+<!--                 [length]="this.tableHandlerService.rows.length"-->
+<!--  >-->
+<!--  </mat-paginator>-->
+<!--</div>-->
+<!--  <div class="paginator">-->
+
+
+<!--    <span>Строк на странице</span>-->
+<!--    <mat-select style="width: 100px" [(ngModel)]="tablePageSize">-->
+<!--      <mat-option *ngFor="let i of this.paginationArr" [value]="i">-->
+<!--        {{i}}-->
+<!--      </mat-option>-->
+<!--    </mat-select>-->
+
+<!--    <img src="assets/icons/paginator/fast-left-icon.png" alt="" (click)="paginator.firstPage()">-->
+<!--&lt;!&ndash;    <span>Страница {{ paginator ? paginator.pageIndex + 1 : 1}} из {{ paginator ? paginator.getNumberOfPages() : 'none'}}</span>&ndash;&gt;-->
+<!--    <img src="assets/icons/paginator/left-icon.png" alt="" (click)="paginator.previousPage()">-->
+<!--    <img src="assets/icons/paginator/right-icon.png" alt="" (click)="paginator.nextPage()">-->
+<!--  </div>-->
+<!--</div>-->
+<!--</body>-->
+
+<main>
+  <div class="tool-bar">
     <div class="icon" (click)="tableHandlerService.addEmptyRow(paginator.pageIndex, paginator.pageSize)">
       <img src="assets/icons/plus-icon.png" alt="Добавить запись">
     </div>
     <div class="icon" (click)="tableHandlerService.deleteSelected(0, paginator.pageSize); this.paginator.firstPage()">
-      <img src="assets/icons/bin-icon.png" alt="Удалить звписи" >
+      <img src="assets/icons/bin-icon.png" alt="Удалить звписи">
+    </div>
+  </div>
+
+  <div class="table-wrapper">
+    <div class="table-container">
+      <div class="flex-table header">
+        <div class="flex-row checkbox">
+          <mat-checkbox (change)="$event ? masterToggle() : null"
+                        [checked]="this.tableHandlerService.selectedRowsNum > 0 && this.tableHandlerService.isAllSelected()"
+                        [indeterminate]="this.tableHandlerService.selectedRowsNum > 0 && !this.tableHandlerService.isAllSelected()"
+          >
+          </mat-checkbox>
+        </div>
+        <div class="data">
+          <div class="flex-row">
+        <span>
+          Имя
+        </span>
+          </div>
+          <div class="flex-row">
+        <span>
+          E-mail
+        </span>
+          </div>
+          <div class="flex-row">
+        <span>
+          Телефон
+        </span>
+          </div>
+        </div>
+      </div>
+      <div class="flex-table row" *ngFor="let _row of rows; let i = index" appEdit
+           [nameCell]="nameRef" [emailCell]="emailRef" [phoneCell]="phoneRef" [editIconCell]="editIcoCell" [row]="_row" [editPhase]="editPhase" (editStart)="editPhaseSet($event)">
+        <div class="flex-row checkbox">
+          <mat-checkbox (click)="$event.stopPropagation()" class='tableCheckbox'
+                        (change)="$event ? this.tableHandlerService.toggleRow(_row) : null"
+                        [checked]="_row.selected"
+
+          >
+          </mat-checkbox>
+        </div>
+        <div class="data">
+          <div class="flex-row" #nameRef>
+        <span>
+          {{_row.name}}
+        </span>
+          </div>
+          <div class="flex-row" #emailRef>
+        <span>
+          {{_row.email}}
+        </span>
+          </div>
+          <div class="flex-row" #phoneRef>
+        <span>
+          {{_row.phone}}
+        </span>
+          </div>
+        </div>
+        <div class="edit-row" #editIcoCell>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!--убрать-->
+  <div style="display: none">
+    <mat-paginator *ngIf="rows" [pageSizeOptions]="this.paginationArr"
+                   [length]="this.tableHandlerService.rows.length"
+    >
+    </mat-paginator>
+  </div>
+
+
+  <div class="pagination">
+
+
+    <div class="page-size">
+      <span>Строк на странице</span>
+
+      <div class="select">
+        <mat-select class="mat-select-css" [(ngModel)]="tablePageSize">
+          <mat-option *ngFor="let i of this.paginationArr" [value]="i">
+            {{i}}
+          </mat-option>
+        </mat-select>
+      </div>
+
+    </div>
+
+    <div class="controls">
+      <div class="icon">
+        <img src="assets/icons/paginator/fast-left-icon.png" alt="" (click)="paginator.firstPage()">
+      </div>
+
+      <span>Страница {{ paginator ? paginator.pageIndex + 1 : 1}} из {{ paginator ? paginator.getNumberOfPages() : 'none'}}</span>
+      <div class="icon">
+        <img src="assets/icons/paginator/left-icon.png" alt="" (click)="paginator.previousPage()">
+      </div>
+      <div class="icon">
+        <img src="assets/icons/paginator/right-icon.png" alt="" (click)="paginator.nextPage()">
+      </div>
+
+
     </div>
 
   </div>
-  <table class="table">
-    <tr class="row">
-      <th >
-                <mat-checkbox (change)="$event ? masterToggle() : null"
-                              [checked]="this.tableHandlerService.selectedRowsNum > 0 && this.tableHandlerService.isAllSelected()"
-                              [indeterminate]="this.tableHandlerService.selectedRowsNum > 0 && !this.tableHandlerService.isAllSelected()"
-                >
-        <!--                      [aria-label]="checkboxLabel()"-->
-                </mat-checkbox>
-      </th>
-      <th>Имя</th>
-      <th>E-mail</th>
-      <th>Номер телефона</th>
-    </tr>
-
-    <tr class="row" appEdit *ngFor="let _row of rows; let i = index" [row]="_row" [editPhase]="this.editPhase" (editStart)="this.editPhaseSet($event)">
-
-      <mat-checkbox (click)="$event.stopPropagation()" class='tableCheckbox'
-                    (change)="$event ? this.tableHandlerService.toggleRow(_row) : null"
-                    [checked]="_row.selected">
-      </mat-checkbox>
-      <td class="hovers data"><div class="name">
-        <span>{{_row.name}}</span>
-      </div></td>
-      <td class="hovers data"><div class="email">
-        <span>{{_row.email}}</span>
-      </div></td>
-      <td class="hovers data"><div class="phone">
-        <span>{{_row.phone}}</span>
-      </div></td>
-
-    </tr>
-  </table>
 
 
-<div>
-  <mat-paginator *ngIf="rows" [pageSizeOptions]="this.paginationArr"
-                 showFirstLastButtons
-                 [length]="this.tableHandlerService.rows.length"
-  >
-  </mat-paginator>
-</div>
-</div>
-</body>
+</main>
